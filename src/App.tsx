@@ -18,6 +18,7 @@ export default function App() {
   const [dueDate, setDueDate] = useState('2026-05-15');
   const [phase, setPhase] = useState<Phase>('idle');
   const [loadingMsg, setLoadingMsg] = useState('Setting up Google Forms...');
+  const [generatingPreview, setGeneratingPreview] = useState(false);
 
   const handleRemoveQuestion = (id: string) => {
     setQuestions((qs) => qs.filter((q) => q.id !== id));
@@ -36,6 +37,13 @@ export default function App() {
     });
   };
 
+  const handleGeneratePreview = async () => {
+    setGeneratingPreview(true);
+    await sleep(1400);
+    setGeneratingPreview(false);
+    setStep(2);
+  };
+
   const handleCreate = async () => {
     setPhase('creating');
     setLoadingMsg('Setting up Google Forms...');
@@ -52,6 +60,7 @@ export default function App() {
     setTeachers(INITIAL_TEACHERS);
     setDueDate('2026-05-15');
     setPhase('idle');
+    setGeneratingPreview(false);
     setLoadingMsg('Setting up Google Forms...');
     setStep(0);
   };
@@ -87,7 +96,8 @@ export default function App() {
                 questions={questions}
                 onRemoveQuestion={handleRemoveQuestion}
                 onBack={() => setStep(0)}
-                onNext={() => setStep(2)}
+                onNext={handleGeneratePreview}
+                generating={generatingPreview}
               />
             )}
             {step === 2 && (
