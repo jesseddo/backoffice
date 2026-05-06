@@ -15,6 +15,7 @@ type Step2ReviewProps = {
   onSetCommitted: (id: string, committed: boolean) => void;
   onBack: () => void;
   onNext: () => void;
+  generating?: boolean;
 };
 
 const TYPE_OPTIONS: { kind: QuestionKind; label: string }[] = [
@@ -285,6 +286,7 @@ export function Step2Review({
   onSetCommitted,
   onBack,
   onNext,
+  generating = false,
 }: Step2ReviewProps) {
   const lastId = questions[questions.length - 1]?.id;
   const hasOpenDraft = questions.some(
