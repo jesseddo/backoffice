@@ -1,11 +1,12 @@
-import { ASSESSMENT_META, REVIEWER_CONFIDENCE } from '../data';
-import type { Phase, Question, Teacher } from '../types';
+import { REVIEWER_CONFIDENCE } from '../data';
+import type { AssessmentMeta, Phase, Question, Teacher } from '../types';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { InfoBanner } from './ui/InfoBanner';
 
 type Step5ConfirmProps = {
   questions: Question[];
+  meta: AssessmentMeta;
   teachers: Teacher[];
   dueDate: string;
   phase: Phase;
@@ -13,6 +14,12 @@ type Step5ConfirmProps = {
   onBack: () => void;
   onCreate: () => void;
 };
+
+function buildAssessmentLabel(meta: AssessmentMeta): string {
+  const parts = [meta.unit.trim(), meta.gradeLevel.trim()].filter(Boolean);
+  if (parts.length === 0) return '—';
+  return parts.join(' — ');
+}
 
 function formatDueDate(iso: string): string {
   if (!iso) return '—';
@@ -81,6 +88,7 @@ function Spinner() {
 
 export function Step5Confirm({
   questions,
+  meta,
   teachers,
   dueDate,
   phase,
@@ -112,10 +120,7 @@ export function Step5Confirm({
         subtitle="Review everything before we set it up. This will create Google Forms and workspace entries for each selected teacher."
       >
         <div>
-          <SummaryRow
-            label="Assessment"
-            value={`${ASSESSMENT_META.unit} — ${ASSESSMENT_META.gradeLevel}`}
-          />
+          <SummaryRow label="Assessment" value={buildAssessmentLabel(meta)} />
           <SummaryRow
             label="Questions"
             value={buildQuestionBreakdown(questions)}

@@ -1,9 +1,22 @@
-import type { FeedbackSample, Question, Teacher } from './types';
+import type {
+  AssessmentMeta,
+  FeedbackSample,
+  LookForsMap,
+  Question,
+  ScoringCriteria,
+  Teacher,
+} from './types';
 
-export const ASSESSMENT_META = {
-  subject: 'Science',
-  gradeLevel: 'Grade 7',
-  unit: 'Chemical reactions',
+export const INITIAL_META: AssessmentMeta = {
+  subject: '',
+  gradeLevel: '',
+  unit: '',
+};
+
+export const META_PLACEHOLDERS: AssessmentMeta = {
+  subject: 'e.g. Science',
+  gradeLevel: 'e.g. Grade 7',
+  unit: 'e.g. Chemical reactions',
 };
 
 export const REVIEWER_CONFIDENCE = 82;
@@ -105,7 +118,82 @@ export const FEEDBACK_SAMPLES: FeedbackSample[] = [
 export const STEP_LABELS = [
   'Upload',
   'Review questions',
-  'Preview feedback',
+  'Verify AI',
   'Assign',
   'Confirm',
 ] as const;
+
+export const INITIAL_LOOK_FORS: LookForsMap = {
+  q1: [
+    {
+      id: 'q1-lf1',
+      text: 'References specific measurements from the investigation',
+      included: true,
+    },
+    {
+      id: 'q1-lf2',
+      text: 'Identifies that total mass is conserved',
+      included: true,
+    },
+    {
+      id: 'q1-lf3',
+      text: 'Connects observation to the conservation of matter',
+      included: true,
+    },
+  ],
+  q2a: [
+    {
+      id: 'q2a-lf1',
+      text: 'Shows molecules before and after the reaction',
+      included: true,
+    },
+    {
+      id: 'q2a-lf2',
+      text: 'Indicates that atoms are rearranged, not destroyed',
+      included: true,
+    },
+  ],
+  q2b: [
+    {
+      id: 'q2b-lf1',
+      text: 'Explains that atoms remain after the reaction',
+      included: true,
+    },
+    {
+      id: 'q2b-lf2',
+      text: 'Distinguishes between atoms and molecules',
+      included: true,
+    },
+    {
+      id: 'q2b-lf3',
+      text: 'Connects the model to conservation of matter',
+      included: true,
+    },
+  ],
+  q3: [
+    {
+      id: 'q3-lf1',
+      text: 'States a clear claim (agree or disagree)',
+      included: true,
+    },
+    {
+      id: 'q3-lf2',
+      text: 'Cites evidence from the investigation',
+      included: true,
+    },
+    {
+      id: 'q3-lf3',
+      text: 'Provides reasoning that links evidence to the claim',
+      included: true,
+    },
+  ],
+};
+
+export const INITIAL_SCORING: ScoringCriteria = {
+  strong:
+    'Includes specific evidence and measurements from the investigation, accurate scientific reasoning, and a clear connection to the conservation of matter.',
+  developing:
+    'Identifies the right idea but is missing specific evidence or full reasoning. May use vague or imprecise language.',
+  emerging:
+    'Repeats common misconceptions (e.g., that mass disappears) or does not reference the investigation. Reasoning is unclear or incorrect.',
+};

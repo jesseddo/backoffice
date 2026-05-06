@@ -7,6 +7,8 @@ export type Question = {
   kind: QuestionKind;
   hint: string;
   warning?: boolean;
+  addedByUser?: boolean;
+  committed?: boolean;
 };
 
 export type Teacher = {
@@ -27,3 +29,23 @@ export type FeedbackSample = {
 };
 
 export type Phase = 'idle' | 'creating' | 'done';
+
+export type AssessmentMeta = {
+  subject: string;
+  gradeLevel: string;
+  unit: string;
+};
+
+export type LookFor = {
+  id: string;
+  text: string;
+  included: boolean;
+};
+
+export type LookForsMap = Record<string, LookFor[]>;
+
+export type ScoringCriteria = {
+  strong: string;
+  developing: string;
+  emerging: string;
+};
